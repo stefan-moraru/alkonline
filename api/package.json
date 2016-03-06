@@ -1,0 +1,17 @@
+{
+  "name": "alkonline",
+  "version": "1.0.0",
+  "description": "Run Alk online",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stefan Moraru",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "promise": "^7.1.1",
+    "tmp": "0.0.28"
+  }
+}

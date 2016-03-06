@@ -1,0 +1,3 @@
+  s = 0;
+  forall x in a  // a is a set
+    s = s + x;

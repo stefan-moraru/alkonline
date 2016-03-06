@@ -1,0 +1,15 @@
+/*
+  gcd
+  krun tests/gcd.alk -cINIT=".Map"
+*/
+
+b = 10
+
+while (a != b) {
+  if (a > b)  a = a - b;
+  if (b > a) b = b - a;
+}
+return a;
+
+
+

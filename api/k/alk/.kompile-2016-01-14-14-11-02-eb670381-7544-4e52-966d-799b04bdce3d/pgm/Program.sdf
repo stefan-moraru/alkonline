@@ -1,0 +1,240 @@
+module Program
+
+imports Common
+imports KBuiltinsBasic
+exports
+
+context-free syntax
+context-free priorities
+{
+    Id -> Exp {}
+    Value -> Exp {}
+    "++" Id -> Exp {cons("Exp1380Syn")}
+    "--" Id -> Exp {cons("Exp1487Syn")}
+} > {
+    Exp "." Id -> Exp {cons("Exp1332Syn")}
+    Exp "[" InsertDzExp "]" -> Exp {cons("Exp1208Syn")}
+    Exp "." "at" "(" InsertDzExp ")" -> Exp {cons("Exp1420Syn")}
+    Exp "." "topFront" "(" ")" -> Exp {cons("Exp1302Syn")}
+    Exp "." "topBack" "(" ")" -> Exp {cons("Exp1463Syn")}
+    Exp "." "size" "(" ")" -> Exp {cons("Exp1323Syn")}
+    Exp "." "update" "(" InsertDzExp "," InsertDzExp ")" -> Exp {cons("Exp189Syn")}
+    Exp "." "insert" "(" InsertDzExp "," InsertDzExp ")" -> Exp {cons("Exp1283Syn")}
+    Exp "." "removeAt" "(" InsertDzExp ")" -> Exp {cons("Exp1290Syn")}
+    Exp "." "removeAllEqTo" "(" InsertDzExp ")" -> Exp {cons("Exp192Syn")}
+    Exp "." "pushFront" "(" InsertDzExp ")" -> Exp {cons("Exp1279Syn")}
+    Exp "." "pushBack" "(" InsertDzExp ")" -> Exp {cons("Exp137Syn")}
+} > { left:
+    Exp "*" Exp -> Exp {left, cons("Exp1403Syn")}
+    Exp "/" Exp -> Exp {left, cons("Exp1438Syn")}
+    Exp "%" Exp -> Exp {left, cons("Exp1275Syn")}
+} > { left:
+    Exp "+" Exp -> Exp {left, cons("Exp1387Syn")}
+    Exp "-" Exp -> Exp {left, cons("Exp1363Syn")}
+} > { left:
+    Exp "U" Exp -> Exp {left, cons("Exp1202Syn")}
+    Exp "^" Exp -> Exp {left, cons("Exp135Syn")}
+    Exp "\\" Exp -> Exp {left, cons("Exp1276Syn")}
+} > {
+    Exp InsertDzOpRel Exp -> Exp {cons("Exp1280Syn")}
+} > {
+    Exp "belongsTo" Exp -> Exp {cons("Exp1469Syn")}
+} > {
+    "!" Exp -> Exp {cons("Exp1454Syn")}
+} > { left:
+    Exp "&&" Exp -> Exp {left, cons("Exp1382Syn")}
+    Exp "||" Exp -> Exp {left, cons("Exp1309Syn")}
+}
+
+context-free priorities
+{
+    Id "(" InsertDzIds ")" "{" InsertDzStmt "}" -> Stmt {cons("Stmt1294Syn")}
+    Id "(" InsertDzExps ")" ";" -> Stmt {cons("Stmt1288Syn")}
+    Exp "=" InsertDzExp ";" -> Stmt {cons("Stmt16Syn")}
+    Exp "." "update" "(" InsertDzExp "," InsertDzExp ")" ";" -> Stmt {cons("Stmt180Syn")}
+    Exp "." "insert" "(" InsertDzExp "," InsertDzExp ")" ";" -> Stmt {cons("Stmt170Syn")}
+    Exp "." "removeAt" "(" InsertDzExp ")" ";" -> Stmt {cons("Stmt183Syn")}
+    Exp "." "removeAllEqTo" "(" InsertDzExp ")" ";" -> Stmt {cons("Stmt1453Syn")}
+    Exp "." "pushFront" "(" InsertDzExp ")" ";" -> Stmt {cons("Stmt1352Syn")}
+    Exp "." "pushBack" "(" InsertDzExp ")" ";" -> Stmt {cons("Stmt1325Syn")}
+    "if" "(" InsertDzExp ")" InsertDzStmt "else" Stmt -> Stmt {cons("Stmt1489Syn")}
+    "if" "(" InsertDzExp ")" Stmt -> Stmt {cons("Stmt1370Syn")}
+    "while" "(" InsertDzExp ")" Stmt -> Stmt {cons("Stmt125Syn")}
+    "forall" InsertDzId "in" InsertDzExp Stmt -> Stmt {cons("Stmt1282Syn")}
+    "for" "(" InsertDzId "=" InsertDzExp ";" InsertDzExp InsertDzOpRel InsertDzExp ";" InsertDzId "=" InsertDzExp ")" Stmt -> Stmt {cons("Stmt185Syn")}
+} > {
+    Stmt Stmt -> Stmt {right, cons("Stmt1295Syn")}
+}
+
+context-free start-symbols
+DzString DzBool DdVar ValueList ValFldList String Int Stmt Float ValFld Bool OpRel Exps Value Ids Id Exp DzInt Interval DzFloat K
+context-free syntax
+    "tan" "(" InsertDzExp ")" -> Exp {cons("Exp1222Syn")}
+    "sqrt" "(" InsertDzExp ")" -> Exp {cons("Exp1277Syn")}
+    DzString -> String {}
+    "acos" "(" InsertDzExp ")" -> Exp {cons("Exp1225Syn")}
+    "{" InsertDzInterval "}" -> Exp {cons("Exp1433Syn")}
+    "sin" "(" InsertDzExp ")" -> Exp {cons("Exp1228Syn")}
+    "<" -> OpRel {cons("OpRel167Syn")}
+    ">" -> OpRel {cons("OpRel15Syn")}
+    DzInt -> Int {}
+    Exp ".." Exp -> Interval {cons("Interval1230Syn")}
+    {Id ","}* -> Ids {cons("Ids1ListSyn")}
+    String -> Value {}
+    "!=" -> OpRel {cons("OpRel17Syn")}
+    "<" InsertDzValueList ">" -> Value {cons("Value1378Syn")}
+    "[" InsertDzInterval "]" -> Exp {cons("Exp1334Syn")}
+    "new" "(" InsertDzExp ")" -> Exp {cons("Exp1335Syn")}
+    DzFloat -> Float {}
+    "<=" -> OpRel {cons("OpRel1336Syn")}
+    Id "->" Value -> ValFld {cons("ValFld128Syn")}
+    Int -> Value {}
+    Float -> Value {}
+    {ValFld ""}* -> ValFldList {cons("ValFldList1ListSyn")}
+    "NULL" -> DdVar {cons("DdVar184Syn")}
+    "==" -> OpRel {cons("OpRel1347Syn")}
+    DzBool -> Bool {}
+    {Value ","}* -> ValueList {cons("ValueList1ListSyn")}
+    "<" InsertDzInterval ">" -> Exp {cons("Exp142Syn")}
+    "[" InsertDzValueList "]" -> Value {cons("Value1445Syn")}
+    {Exp ","}* -> Exps {cons("Exps1ListSyn")}
+    "cos" "(" InsertDzExp ")" -> Exp {cons("Exp1482Syn")}
+    "{" InsertDzStmt "}" -> Stmt {cons("Stmt150Syn")}
+    ">=" -> OpRel {cons("OpRel1259Syn")}
+    "atan" "(" InsertDzExp ")" -> Exp {cons("Exp1406Syn")}
+    DdVar -> Value {}
+    "{" "}" -> Stmt {cons("Stmt1488Syn")}
+    "{" InsertDzValueList "}" -> Value {cons("Value156Syn")}
+    "{" InsertDzValFldList "}" -> Value {cons("Value1207Syn")}
+    Bool -> Value {}
+    "asin" "(" InsertDzExp ")" -> Exp {cons("Exp1455Syn")}
+    OpRel -> InsertDzOpRel
+    ValueList -> InsertDzValueList
+    ValFldList -> InsertDzValFldList
+    Exps -> InsertDzExps
+    Ids -> InsertDzIds
+    Id -> InsertDzId
+    Exp -> InsertDzExp
+    Stmt -> InsertDzStmt
+    Interval -> InsertDzInterval
+
+
+    DzDzString        -> DzString    {cons("DzString1Const")}
+    DzDzBool        -> DzBool    {cons("DzBool1Const")}
+    DzDzInt        -> DzInt    {cons("DzInt1Const")}
+    DzDzId        -> DzId    {cons("DzId1Const")}
+    DzDzFloat        -> DzFloat    {cons("DzFloat1Const")}
+
+
+
+%% start symbols subsorts
+    KItem        -> K
+    DzString        -> K
+    DzBool        -> K
+    DdVar        -> K
+    String        -> K
+    Int        -> K
+    Stmt        -> K
+    Float        -> K
+    ValFld        -> K
+    Bool        -> K
+    OpRel        -> K
+    Value        -> K
+    Id        -> K
+    Exp        -> K
+    DzInt        -> K
+    Interval        -> K
+    DzFloat        -> K
+lexical syntax
+    "Infinity" -> DzDzFloat
+    "true" -> DzDzBool
+    "false" -> DzDzBool
+    "NaN" -> DzDzFloat
+
+
+    "cos" -> IdDz {reject}
+    "while" -> IdDz {reject}
+    "atan" -> IdDz {reject}
+    "sqrt" -> IdDz {reject}
+    "else" -> IdDz {reject}
+    "if" -> IdDz {reject}
+    "tan" -> IdDz {reject}
+    "new" -> IdDz {reject}
+    "NULL" -> IdDz {reject}
+    "in" -> IdDz {reject}
+    "acos" -> IdDz {reject}
+    "at" -> IdDz {reject}
+    "size" -> IdDz {reject}
+    "true" -> IdDz {reject}
+    "removeAllEqTo" -> IdDz {reject}
+    "removeAt" -> IdDz {reject}
+    "for" -> IdDz {reject}
+    "update" -> IdDz {reject}
+    "insert" -> IdDz {reject}
+    "U" -> IdDz {reject}
+    "sin" -> IdDz {reject}
+    "topBack" -> IdDz {reject}
+    "NaN" -> IdDz {reject}
+    "topFront" -> IdDz {reject}
+    "pushFront" -> IdDz {reject}
+    "Infinity" -> IdDz {reject}
+    "forall" -> IdDz {reject}
+    "false" -> IdDz {reject}
+    "pushBack" -> IdDz {reject}
+    "asin" -> IdDz {reject}
+    "belongsTo" -> IdDz {reject}
+
+lexical restrictions
+    %% follow restrictions
+
+
+lexical syntax
+    [A-Za-z\_][A-Za-z0-9\_]* -> IdDz
+    "cos" -> IdDz {reject}
+    "while" -> IdDz {reject}
+    "atan" -> IdDz {reject}
+    "sqrt" -> IdDz {reject}
+    "else" -> IdDz {reject}
+    "if" -> IdDz {reject}
+    "tan" -> IdDz {reject}
+    "new" -> IdDz {reject}
+    "NULL" -> IdDz {reject}
+    "in" -> IdDz {reject}
+    "acos" -> IdDz {reject}
+    "at" -> IdDz {reject}
+    "size" -> IdDz {reject}
+    "true" -> IdDz {reject}
+    "removeAllEqTo" -> IdDz {reject}
+    "removeAt" -> IdDz {reject}
+    "for" -> IdDz {reject}
+    "update" -> IdDz {reject}
+    "insert" -> IdDz {reject}
+    "U" -> IdDz {reject}
+    "sin" -> IdDz {reject}
+    "topBack" -> IdDz {reject}
+    "NaN" -> IdDz {reject}
+    "topFront" -> IdDz {reject}
+    "pushFront" -> IdDz {reject}
+    "Infinity" -> IdDz {reject}
+    "forall" -> IdDz {reject}
+    "false" -> IdDz {reject}
+    "pushBack" -> IdDz {reject}
+    "asin" -> IdDz {reject}
+    "belongsTo" -> IdDz {reject}
+    [\-\+]? [0-9]+ -> DzIntDz
+    [\+\-]?[0-9]+"."[0-9]+([eE][\+\-]?[0-9]+)?([fFdD]|([pP][0-9]+[xX][0-9]+))? -> DzFloatDz
+    [\+\-]?"Infinity"([fFdD]|([pP][0-9]+[xX][0-9]+))? -> DzFloatDz
+    "Infinity" -> DzFloatDz {reject}
+    "NaN"([fFdD]|([pP][0-9]+[xX][0-9]+))? -> DzFloatDz
+    "NaN" -> DzFloatDz {reject}
+    "\"" ((~[\"\n\r\\]) | (((([\\][nrtf\"\\]) | ([\\][x][0-9a-fA-F][0-9a-fA-F])) | ([\\][u][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F])) | ([\\][U][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F])))* "\"" -> DzStringDz
+context-free syntax
+    DzStringDz -> DzString {cons("DzString1Const")}
+    IdDz -> Id {cons("Id1Const")}
+    DzIntDz -> DzInt {cons("DzInt1Const")}
+    DzFloatDz -> DzFloat {cons("DzFloat1Const")}
+
+
+context-free restrictions
+    Id -/- [A-Za-z0-9\_]
+    DzInt -/-  [0-9]
